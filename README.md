@@ -7,7 +7,7 @@
 - 로그인 - `POST /login`
 - 로그아웃 - `GET /logout`
 - 개인정보조회 - `GET /users/{userId}`
-- 개인정보수정 - `PUT(or PATCH) /users/{userId}`
+- 개인정보수정 - `PUT(or PATCH) /users`
 
 ### 메인화면
 - 음식 카테고리 - `GET /category`
@@ -44,7 +44,7 @@
 - 로그인 - `POST /login`
 - 로그아웃 - `GET /logout`
 - 개인정보조회 - `GET /users/{userId}`
-- 개인정보수정 - `PUT(or PATCH) /users/{userId}`
+- 개인정보수정 - `PUT(or PATCH) /users`
 
 ### 음식점
 - 음식점 등록 - `POST /stores`
@@ -55,6 +55,8 @@
 
 ### 음식점 별 음식등록(메뉴)
 - 음식등록 - `POST /foods`
+- 음식수정 - `PUT /foods`
+- 음식수정 - `DELETE /foods/{foodId}`
 - 음식전체조회 - `GET /foods/stores/{storeId}`
 - 음식조회 - `GET /foods/{foodId}`
 
@@ -63,3 +65,14 @@
 - 특정주문 - `GET /orders/{orderId}`
 - 주문처리 - `POST /orders/{orderId}`
   - 주문수락/삭제에 대한 상태값 전달
+
+## 데이터베이스 테이블 설계
+### 음식 테이블 설계 (FOOD)
+| Column Name | Data Type      | Key | Null | Description               |
+|-------------|----------------|-----|------|---------------------------|
+| id          | bigint         | PK  | No   | Unique identifier         |
+| storeId     | bigint         | FK  | No   | Identifier of the store   |
+| foodName    | Varchar(128)   |     | No   | Name of the food          |
+| price       | int            |     | No   | Price of the food         |
+| foodType    | Varchar(128)   |     | No   | Type/category of the food |
+| description | Varchar(255)   |     |      | Description of the food   |
