@@ -5,12 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FoodRepository {
-    Food save(Food food);
+public interface JpaFoodRepository extends JpaRepository<Food, Long>,FoodRepository {
 
-    Food findById(long id);
-
-    Food saveAndFlush(Food food);
-
-    int deleteById(long id);
 }

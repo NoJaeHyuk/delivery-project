@@ -1,6 +1,7 @@
 package com.sjc.delivery.food.controller;
 
 import com.sjc.delivery.food.domain.Food;
+import com.sjc.delivery.food.dto.FoodDto;
 import com.sjc.delivery.food.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,9 +23,13 @@ public class FoodController {
     }
 
     @PostMapping("/foods")
-    public String registFood(@RequestBody Food food){
-        foodService.save(food);
-        return "ok";
+    public FoodDto registFood(@RequestBody FoodDto foodDto){
+        // DTO -> Entity 변환
+        Food request = toEntity(foodDto);
+        Food response = foodService.save(request);
+
+        // Entity -> DTO 변환
+        return toResponse(response);
     }
 
     @GetMapping("/foods/{foodId}")
@@ -33,14 +38,33 @@ public class FoodController {
     }
 
     @PutMapping("/foods")
-    public String updateFood(@RequestBody Food food){
-        foodService.saveAndFlush(food);
-        return "ok";
+    public FoodDto updateFood(@RequestBody FoodDto foodDto){
+        Food request = toEntity(foodDto);
+        Food response = foodService.saveAndFlush(request);
+        return toResponse(response);
     }
 
     @DeleteMapping("/foods/{foodId}")
-    public String updateFood(@PathVariable Long foodId){
-        foodService.deleteById(foodId);
-        return "ok";
+    public int updateFood(@PathVariable Long foodId){
+        return foodService.deleteById(foodId);
+    }
+
+    public static Food toEntity(FoodDto req) {
+        return Food.builder()
+            .foodName(req.getFoodName())
+            .foodType(req.getFoodType())
+            .price(req.getPrice())
+            .description(req.getDescription())
+            .build();
+    }
+
+    public static FoodDto toResponse (Food entity) {
+        return FoodDto.builder()
+            .id(entity.getId())
+            .foodName(entity.getFoodName())
+            .foodType(entity.getFoodType())
+            .price(entity.getPrice())
+            .description(entity.getDescription())
+            .build();
     }
 }
