@@ -4,7 +4,7 @@ import com.sjc.delivery.food.domain.Food;
 import java.util.HashMap;
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class MemoryFoodRepository implements FoodRepository {
 
     private HashMap<Long, Food> db = new HashMap<>();
@@ -29,7 +29,11 @@ public class MemoryFoodRepository implements FoodRepository {
     }
 
     @Override
-    public void deleteById(long id) {
+    public int deleteById(long id) {
+        if(!db.containsKey(id)){
+            return 0;
+        }
         db.remove(id);
+        return 1;
     }
 }

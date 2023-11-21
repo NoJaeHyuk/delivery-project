@@ -1,12 +1,22 @@
 package com.sjc.delivery.food.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Entity
 public class Food {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long storeId;
     private String foodName;
@@ -14,7 +24,17 @@ public class Food {
     private String foodType;
     private String description;
 
+    @Builder
+    public Food(String foodName, int price, String foodType, String description) {
+        this.foodName = foodName;
+        this.price = price;
+        this.foodType = foodType;
+        this.description = description;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }

@@ -10,6 +10,6 @@ public interface FoodService {
 
     Food saveAndFlush(Food food);
 
-    void deleteById(long id);
+    int deleteById(long id);
 
 }
