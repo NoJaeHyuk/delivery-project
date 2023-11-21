@@ -1,6 +1,6 @@
 ---
 name: issue_template
-about: 해당 이슈 생성 템플릿을 사용하여 이슈를 생성해주세요. (태그필수)
+about: 이슈생성 시 활용해주세요. (라벨등록필수)
 title: ''
 labels: ''
 assignees: ''
