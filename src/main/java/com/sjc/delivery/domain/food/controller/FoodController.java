@@ -1,8 +1,9 @@
-package com.sjc.delivery.food.controller;
+package com.sjc.delivery.domain.food.controller;
 
-import com.sjc.delivery.food.domain.Food;
-import com.sjc.delivery.food.dto.FoodDto;
-import com.sjc.delivery.food.service.FoodService;
+import com.sjc.delivery.domain.food.domain.Food;
+import com.sjc.delivery.domain.food.dto.FoodDto;
+import com.sjc.delivery.domain.food.service.FoodService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class FoodController {
     }
 
     @PostMapping("/foods")
-    public FoodDto registFood(@RequestBody FoodDto foodDto){
+    public FoodDto registFood(@Valid @RequestBody FoodDto foodDto){
         // DTO -> Entity 변환
         Food request = toEntity(foodDto);
         Food response = foodService.save(request);

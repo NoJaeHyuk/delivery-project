@@ -1,5 +1,7 @@
-package com.sjc.delivery.food.dto;
+package com.sjc.delivery.domain.food.dto;
 
+import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Getter;
 public class FoodDto {
     private Long id;
     private Long storeId;
+    @NotBlank
     private String foodName;
     private int price;
     private String foodType;

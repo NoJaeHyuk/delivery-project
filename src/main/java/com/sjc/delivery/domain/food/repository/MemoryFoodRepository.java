@@ -1,8 +1,7 @@
-package com.sjc.delivery.food.repository;
+package com.sjc.delivery.domain.food.repository;
 
-import com.sjc.delivery.food.domain.Food;
+import com.sjc.delivery.domain.food.domain.Food;
 import java.util.HashMap;
-import org.springframework.stereotype.Repository;
 
 //@Repository
 public class MemoryFoodRepository implements FoodRepository {

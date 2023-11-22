@@ -1,8 +1,7 @@
-package com.sjc.delivery.food.service;
+package com.sjc.delivery.domain.food.service;
 
-import com.sjc.delivery.food.domain.Food;
-import com.sjc.delivery.food.dto.FoodDto;
-import com.sjc.delivery.food.repository.FoodRepository;
+import com.sjc.delivery.domain.food.domain.Food;
+import com.sjc.delivery.domain.food.repository.FoodRepository;
 import org.springframework.stereotype.Service;
 
 @Service

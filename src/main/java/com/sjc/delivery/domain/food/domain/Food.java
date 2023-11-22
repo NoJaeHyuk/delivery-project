@@ -1,4 +1,4 @@
-package com.sjc.delivery.food.domain;
+package com.sjc.delivery.domain.food.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
