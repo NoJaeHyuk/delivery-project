@@ -1,15 +1,16 @@
 package com.sjc.delivery.domain.food.service;
 
+import com.sjc.delivery.domain.food.dto.request.FoodRegisterRequest;
+import com.sjc.delivery.domain.food.dto.request.FoodUpdateRequest;
 import com.sjc.delivery.domain.food.entity.Food;
+import java.util.List;
 
 public interface FoodService {
+    Food findById(Long foodId);
+    List<Food> findByStore(Long storeId);
 
-    Food save(Food food);
+    Food registerFood(FoodRegisterRequest foodRegisterRequest);
 
-    Food findById(long id);
-
-    Food saveAndFlush(Food food);
-
-    int deleteById(long id);
-
+    Food updateFood(FoodUpdateRequest foodUpdateRequest);
 }
+
