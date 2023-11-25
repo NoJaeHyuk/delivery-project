@@ -21,6 +21,7 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public Food findById(long id) {
         //return foodRepository.findById(id);
+        return null;
     }
 
     @Override
@@ -31,5 +32,6 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public int deleteById(long id) {
         //return foodRepository.deleteById(id);
+        return 0;
     }
 }

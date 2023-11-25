@@ -2,6 +2,7 @@ package com.sjc.delivery.domain.store.entity;
 
 import static jakarta.persistence.FetchType.LAZY;
 
+import com.sjc.delivery.domain.BaseTimeEntity;
 import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.order.entity.Order;
 import com.sjc.delivery.domain.user.entity.User;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Store {
+public class Store extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,10 +46,10 @@ public class Store {
 
     private int minDeliveryPrice;
 
-    @OneToMany(mappedBy = "food", fetch = LAZY)
+    @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Food> foods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "order", fetch = LAZY)
+    @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Order> orders = new ArrayList<>();
 
 }

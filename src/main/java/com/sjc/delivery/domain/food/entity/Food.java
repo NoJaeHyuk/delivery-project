@@ -1,5 +1,6 @@
 package com.sjc.delivery.domain.food.entity;
 
+import com.sjc.delivery.domain.BaseTimeEntity;
 import com.sjc.delivery.domain.store.entity.Store;
 import com.sjc.delivery.domain.user.entity.User;
 import jakarta.persistence.Entity;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Food {
+public class Food extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
