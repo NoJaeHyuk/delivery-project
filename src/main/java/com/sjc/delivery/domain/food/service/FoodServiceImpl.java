@@ -1,8 +1,7 @@
-package com.sjc.delivery.food.service;
+package com.sjc.delivery.domain.food.service;
 
-import com.sjc.delivery.food.domain.Food;
-import com.sjc.delivery.food.dto.FoodDto;
-import com.sjc.delivery.food.repository.FoodRepository;
+import com.sjc.delivery.domain.food.entity.Food;
+import com.sjc.delivery.domain.food.repository.FoodRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +20,7 @@ public class FoodServiceImpl implements FoodService{
 
     @Override
     public Food findById(long id) {
-        return foodRepository.findById(id);
+        //return foodRepository.findById(id);
     }
 
     @Override
@@ -31,6 +30,6 @@ public class FoodServiceImpl implements FoodService{
 
     @Override
     public int deleteById(long id) {
-        return foodRepository.deleteById(id);
+        //return foodRepository.deleteById(id);
     }
 }

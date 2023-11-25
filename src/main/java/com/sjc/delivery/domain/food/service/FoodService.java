@@ -1,6 +1,6 @@
-package com.sjc.delivery.food.service;
+package com.sjc.delivery.domain.food.service;
 
-import com.sjc.delivery.food.domain.Food;
+import com.sjc.delivery.domain.food.entity.Food;
 
 public interface FoodService {
 
