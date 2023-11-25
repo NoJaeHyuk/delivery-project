@@ -1,8 +1,8 @@
-package com.sjc.delivery.domain.food.controller;
+package com.sjc.delivery.domain.user.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class FoodController {
+public class UserController {
 
 }

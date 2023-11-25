@@ -1,15 +1,10 @@
 package com.sjc.delivery.domain.food.repository;
 
-import com.sjc.delivery.domain.food.domain.Food;
+import com.sjc.delivery.domain.food.entity.Food;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FoodRepository {
-    Food save(Food food);
+public interface FoodRepository extends JpaRepository<Food, Long> {
 
-    Food findById(long id);
-
-    Food saveAndFlush(Food food);
-
-    int deleteById(long id);
 }

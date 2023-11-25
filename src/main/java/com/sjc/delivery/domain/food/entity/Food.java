@@ -1,15 +1,17 @@
-package com.sjc.delivery.domain.food.domain;
+package com.sjc.delivery.domain.food.entity;
 
+import com.sjc.delivery.domain.store.entity.Store;
+import com.sjc.delivery.domain.user.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -18,23 +20,16 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long storeId;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
     private String foodName;
-    private int price;
+    private int foodPrice;
     private String foodType;
     private String description;
-
-    @Builder
-    public Food(String foodName, int price, String foodType, String description) {
-        this.foodName = foodName;
-        this.price = price;
-        this.foodType = foodType;
-        this.description = description;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    private String foodImage;
+    private Boolean isDeleted;
 
 }
