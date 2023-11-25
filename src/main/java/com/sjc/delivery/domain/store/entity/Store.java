@@ -18,8 +18,11 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Store extends BaseTimeEntity {
@@ -32,6 +35,8 @@ public class Store extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private String storeName;
 
     private String foodCategory;
 
@@ -52,4 +57,27 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Order> orders = new ArrayList<>();
 
+    @Builder
+    public Store(User user, String storeName, String foodCategory, String address, String phone,
+        String description, String storeImage, int minDeliveryPrice) {
+        this.user = user;
+        this.storeName = storeName;
+        this.foodCategory = foodCategory;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.storeImage = storeImage;
+        this.minDeliveryPrice = minDeliveryPrice;
+    }
+
+    public void updateStore(String storeName, String foodCategory, String address, String phone,
+        String description, String storeImage, int minDeliveryPrice){
+        this.storeName = storeName;
+        this.foodCategory = foodCategory;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.storeImage = storeImage;
+        this.minDeliveryPrice = minDeliveryPrice;
+    }
 }
