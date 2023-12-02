@@ -1,78 +1,128 @@
-# 배달 어플 구현하기
+# 배달 어플 기능 구현 프로젝트
 
-## REST API 설계(URL, HTTP method)
-## [사용자 기준]
-### 회원
-- 회원가입 - `POST /users`
-- 로그인 - `POST /login`
-- 로그아웃 - `GET /logout`
-- 개인정보조회 - `GET /users/{userId}`
-- 개인정보수정 - `PUT(or PATCH) /users`
+## 🚚 프로젝트 소개 
+배달어플의 기능을 구현한 Back-End API 서비스 프로젝트입니다. 
 
-### 메인화면
-- 음식 카테고리 - `GET /category`
-    - 한식, 중식, 일식... 등
-    - 메인은 그냥 /main 으로 필요한 데이터를 한번에 보내야하나?
-
-### 음식점 
-- 카테코리 별 음식점 조회 - `GET /stores/category/{category}`
-- 특정 음식점 조회(선택) - `GET /stores/{storeId}`
-
-### 음식
-- 특정 매장의 음식 전체 조회 - `GET /foods/stores/{storeId}`
-- 음식 상세 조회 - `GET /foods/{foodId}`
-
-### 주문 
-- 주문하기 - `POST /orders`
-- 주문조회 - `GET /orders/{orderId}`
-- 나의 전체 주문 조회 - `GET /orders/users/{userId}`
-  - order 테이블의 user_id를 식별자로 쓴다는 개념으로 orders 뒤로 users 둬서 계층 표현({}안에 값이 userId라는 것을 명시하기 위해)
-
-### 리뷰 
-- 리뷰등록 - `POST /reviews`
-- 리뷰상세조회 - `GET /reviews/{reviewId}`
-- 내가 등록한 리뷰 내역 조회 - `GET /reviews/users/{userId}`
-  - /reviews로 하고 {userId}는 URL에 명시하지 않고 세션이나 쿠키같은걸로 내부 로직에서 분기처리해야하나?
-- 리뷰수정 - `PUT /reviews/{reviewId}`
-- 리뷰삭제 - `DELETE /reviews/{reviewId}`
+## 🧑🏻‍💻 구성원 
+### BE 
+> @[노재혁](https://github.com/NoJaeHyuk)
 
 
-## [매장기준]
-### 매장회원 
-- 회원가입 - `POST /users`
-  - 권한정보를 일반사용자와 매장회원을 구분해서 전달
-- 로그인 - `POST /login`
-- 로그아웃 - `GET /logout`
-- 개인정보조회 - `GET /users/{userId}`
-- 개인정보수정 - `PUT(or PATCH) /users`
+## 📚 Stack
+<br/>
+<div algin = left>
+  <img src="https://img.shields.io/badge/java-FF5A00?style=for-the-badge&logo=Java&logoColor=white">
+  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+  <br/>
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=springboot&logoColor=black">
+  <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=black">
+  <br/>
+  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
+  <br/>
+  <img src="https://img.shields.io/badge/mariadb-4479A1?style=for-the-badge&logo=mariadb&logoColor=white">
+  <br/>
+  <img src="https://img.shields.io/badge/intellij-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+  <img src="https://img.shields.io/badge/postman-FF6C37?style=for-the-badge&logo=postman&logoColor=black">
+</div>
 
-### 음식점
-- 음식점 등록 - `POST /stores`
-- 음식점 수정 - `PUT /stores`
-- 음식점 조회 - `GET /stores/{storeId}`
-- 음식점 삭제 - `DELETE /stores/{storeId}`
-  - 삭제기능을 제공하나?
 
-### 음식점 별 음식등록(메뉴)
-- 음식등록 - `POST /foods`
-- 음식수정 - `PUT /foods`
-- 음식수정 - `DELETE /foods/{foodId}`
-- 음식전체조회 - `GET /foods/stores/{storeId}`
-- 음식조회 - `GET /foods/{foodId}`
+## 📑 Convention
+### 패키지 구조
+```
+├─main
+│  ├─java
+│  │  └─com
+│  │      └─sjc
+│  │          └─delivery
+│  │              ├─config
+│  │              ├─domain
+│  │              │  ├─cart
+│  │              │  │  ├─controller
+│  │              │  │  ├─entity
+│  │              │  │  ├─repository
+│  │              │  │  └─service
+│  │              │  ├─food
+│  │              │  │  ├─controller
+│  │              │  │  ├─dto
+│  │              │  │  │  ├─request
+│  │              │  │  │  └─response
+│  │              │  │  ├─entity
+│  │              │  │  ├─exception
+│  │              │  │  ├─repository
+│  │              │  │  └─service
+│  │              │  ├─order
+│  │              │  │  ├─controller
+│  │              │  │  ├─dto
+│  │              │  │  │  ├─request
+│  │              │  │  │  └─response
+│  │              │  │  ├─entity
+│  │              │  │  ├─exception
+│  │              │  │  ├─repository
+│  │              │  │  └─service
+│  │              │  ├─store
+│  │              │  │  ├─controller
+│  │              │  │  ├─dto
+│  │              │  │  │  ├─request
+│  │              │  │  │  └─response
+│  │              │  │  ├─entity
+│  │              │  │  ├─exception
+│  │              │  │  ├─repository
+│  │              │  │  └─service
+│  │              │  └─user
+│  │              │      ├─controller
+│  │              │      ├─dto
+│  │              │      │  ├─request
+│  │              │      │  └─response
+│  │              │      ├─entity
+│  │              │      ├─exception
+│  │              │      ├─repository
+│  │              │      └─service
+│  │              └─global
+│  │                  ├─enums
+│  │                  ├─exception
+│  │                  ├─handler
+│  │                  ├─response
+│  │                  └─utils
+│  └─resources
+│      ├─static
+│      └─templates
+└─test
+    └─java
+        └─com
+            └─sjc
+                └─delivery
+```
+### 📄ERD
+[ERD 설계 링크](https://www.erdcloud.com/d/yzQhyrumBreu3Zqu3)   
 
-### 주문관리 
-- 주문전체확인 - `GET /orders/stores/{storeId}`
-- 특정주문 - `GET /orders/{orderId}`
-- 주문처리 - `POST /orders/{orderId}`
-  - 주문수락/삭제에 대한 상태값 전달
+### Commit 
+- Feat: 기능 구현
+- Fix: 수정
+- Refactor: 개선
+- Design: 스타일
+- Command: 주석
+- Doc: 문서, 이슈 템플릿
+- Chore: 코드에 영향을 주지 않는 작업들
+- Delete: 파일 삭제
+- Test: 테스트 관련 작업들
 
-## 데이터베이스 테이블 설계
-### 음식 테이블 설계 (FOOD)
-| Column Name | Data Type      | Key | Null | Description               |
-|-------------|----------------|-----|------|---------------------------|
-| id          | bigint         | PK  | No   | Unique identifier         |
-| storeId     | bigint         | FK  | No   | Identifier of the store   |
-| foodName    | Varchar(128)   |     | No   | Name of the food          |
-| price       | int            |     | No   | Price of the food         |
-| foodType    | Varchar(128)   |     | No   | Type/category of the food |
-| description | Varchar(255)   |     |      | Description of the food   |
+### Branch 전략
+- main(master) : 기준이 되는 브랜치로 제품을 배포하는 브랜치
+- develop : 개발 브랜치로 개발자들이 이 브랜치를 기준으로 각자 작업한 기능들을 Merge
+- feature : 단위 기능을 개발하는 브랜치로 기능 개발이 완료되면 develop 브랜치에 Merge
+
+### Issues, PR, Merge
+1. 프로젝트 진행 계획 및 이슈를 Github 이슈탭의 정해진 양식에 맞게 등록한다.
+2. 생성한 이슈에 대해서 개발을 한 후에, 이슈를 닫는 pull-request를 develop 브랜치로 생성합니다.
+3. 최종적으로 PR에서 이슈가 발견되지 않으면 main 브랜치로 PR을 보내 병합한다. 
+
+## 🧑🏻‍💻 개발 기간 : `2주, 23.11.20 (월) ~ 23.12.01 (금)`
+
+
+
+
+
+
+
+
+
