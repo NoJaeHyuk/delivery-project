@@ -5,6 +5,7 @@ import com.sjc.delivery.domain.food.dto.request.FoodUpdateRequest;
 import com.sjc.delivery.domain.food.dto.response.FoodResponse;
 import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.food.service.FoodService;
+import com.sjc.delivery.global.response.ApiResponse;
 import com.sjc.delivery.global.utils.ApiResponseUtils;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,28 +20,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/food")
+@RequestMapping("api/foods")
 @RequiredArgsConstructor
 public class FoodController {
 
     private final FoodService foodService;
 
     @PostMapping("")
-    public ResponseEntity<?> registerFood(@RequestBody FoodRegisterRequest foodRegisterRequest) {
+    public ResponseEntity<ApiResponse<FoodResponse>> registerFood(@RequestBody FoodRegisterRequest foodRegisterRequest) {
         return ResponseEntity.ok(
-            ApiResponseUtils.success("OK", FoodResponse.toResponse(foodService.registerFood(foodRegisterRequest))));
+            ApiResponseUtils.success(FoodResponse.from(foodService.registerFood(foodRegisterRequest))));
     }
 
     @PutMapping("")
     public ResponseEntity<?> updateFood(@RequestBody FoodUpdateRequest foodUpdateRequest) {
         return ResponseEntity.ok(
-            ApiResponseUtils.success("OK", FoodResponse.toResponse(foodService.updateFood(foodUpdateRequest))));
+            ApiResponseUtils.success(FoodResponse.from(foodService.updateFood(foodUpdateRequest))));
     }
 
     @GetMapping("/{foodId}")
     public ResponseEntity<?> getFood(@PathVariable Long foodId) {
         return ResponseEntity.ok().body(
-            ApiResponseUtils.success("OK", FoodResponse.toResponse(foodService.findById(foodId))));
+            ApiResponseUtils.success(FoodResponse.from(foodService.findById(foodId))));
     }
 
     @GetMapping("/store/{storeId}")
@@ -48,10 +49,10 @@ public class FoodController {
         List<Food> byStore = foodService.findByStore(storeId);
 
         List<FoodResponse> foodResponses = byStore.stream()
-            .map(m -> FoodResponse.toResponse(m))
+            .map(m -> FoodResponse.from(m))
             .collect(Collectors.toList());
 
-        return ResponseEntity.ok(ApiResponseUtils.success("OK", foodResponses));
+        return ResponseEntity.ok(ApiResponseUtils.success(foodResponses));
     }
 
 }

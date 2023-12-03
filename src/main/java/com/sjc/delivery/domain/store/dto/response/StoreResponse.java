@@ -1,7 +1,5 @@
 package com.sjc.delivery.domain.store.dto.response;
 
-import com.sjc.delivery.domain.food.dto.response.FoodResponse;
-import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.store.entity.Store;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +30,7 @@ public class StoreResponse {
         this.minDeliveryPrice = minDeliveryPrice;
     }
 
-    public static StoreResponse toResponse(Store store) {
+    public static StoreResponse from(Store store) {
         return StoreResponse.builder()
             .id(store.getId())
             .storeName(store.getStoreName())

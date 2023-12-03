@@ -24,7 +24,7 @@ public class UserResponse {
         this.userRole = userRole;
     }
 
-    public static UserResponse toResponse(User user){
+    public static UserResponse from(User user){
         return UserResponse.builder()
             .id(user.getId())
             .userName(user.getUserName())
