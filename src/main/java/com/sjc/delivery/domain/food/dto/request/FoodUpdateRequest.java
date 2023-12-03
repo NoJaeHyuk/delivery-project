@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class FoodUpdateRequest {
     private Long id;
     private String foodName;

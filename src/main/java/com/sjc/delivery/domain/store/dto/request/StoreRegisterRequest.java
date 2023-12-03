@@ -1,13 +1,10 @@
 package com.sjc.delivery.domain.store.dto.request;
 
-import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.store.entity.Store;
 import com.sjc.delivery.domain.user.entity.User;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class StoreRegisterRequest {
     private String foodCategory;
     private String storeName;
