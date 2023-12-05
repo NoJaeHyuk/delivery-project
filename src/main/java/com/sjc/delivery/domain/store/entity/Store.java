@@ -2,6 +2,7 @@ package com.sjc.delivery.domain.store.entity;
 
 import static jakarta.persistence.FetchType.LAZY;
 
+import com.sjc.delivery.domain.BaseTimeEntity;
 import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.order.entity.Order;
 import com.sjc.delivery.domain.user.entity.User;
@@ -17,11 +18,14 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Store {
+public class Store extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +35,8 @@ public class Store {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private String storeName;
 
     private String foodCategory;
 
@@ -45,10 +51,33 @@ public class Store {
 
     private int minDeliveryPrice;
 
-    @OneToMany(mappedBy = "food", fetch = LAZY)
+    @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Food> foods = new ArrayList<>();
 
-    @OneToMany(mappedBy = "order", fetch = LAZY)
+    @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Order> orders = new ArrayList<>();
 
+    @Builder
+    public Store(User user, String storeName, String foodCategory, String address, String phone,
+        String description, String storeImage, int minDeliveryPrice) {
+        this.user = user;
+        this.storeName = storeName;
+        this.foodCategory = foodCategory;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.storeImage = storeImage;
+        this.minDeliveryPrice = minDeliveryPrice;
+    }
+
+    public void updateStore(String storeName, String foodCategory, String address, String phone,
+        String description, String storeImage, int minDeliveryPrice){
+        this.storeName = storeName;
+        this.foodCategory = foodCategory;
+        this.address = address;
+        this.phone = phone;
+        this.description = description;
+        this.storeImage = storeImage;
+        this.minDeliveryPrice = minDeliveryPrice;
+    }
 }
