@@ -5,8 +5,8 @@ import static jakarta.persistence.FetchType.LAZY;
 import com.sjc.delivery.domain.BaseTimeEntity;
 import com.sjc.delivery.domain.food.entity.Food;
 import com.sjc.delivery.domain.order.entity.Order;
+import com.sjc.delivery.domain.order.entity.OrderMenu;
 import com.sjc.delivery.domain.user.entity.User;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +29,6 @@ public class Store extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
     private Long id;
 
     @ManyToOne
@@ -57,6 +56,9 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", fetch = LAZY)
     private final List<Order> orders = new ArrayList<>();
 
+    @OneToMany(mappedBy = "store", fetch = LAZY)
+    private final List<OrderMenu> orderMenus = new ArrayList<>();
+
     @Builder
     public Store(User user, String storeName, String foodCategory, String address, String phone,
         String description, String storeImage, int minDeliveryPrice) {
@@ -72,12 +74,31 @@ public class Store extends BaseTimeEntity {
 
     public void updateStore(String storeName, String foodCategory, String address, String phone,
         String description, String storeImage, int minDeliveryPrice){
-        this.storeName = storeName;
-        this.foodCategory = foodCategory;
-        this.address = address;
-        this.phone = phone;
-        this.description = description;
-        this.storeImage = storeImage;
+
+        if(storeName != null){
+            this.storeName = storeName;
+        }
+
+        if(foodCategory != null){
+            this.foodCategory = foodCategory;
+        }
+
+        if(address != null){
+            this.address = address;
+        }
+
+        if(phone != null){
+            this.phone = phone;
+        }
+
+        if(description != null){
+            this.description = description;
+        }
+
+        if(storeImage != null){
+            this.storeImage = storeImage;
+        }
+
         this.minDeliveryPrice = minDeliveryPrice;
     }
 }

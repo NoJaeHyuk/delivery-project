@@ -2,8 +2,9 @@ package com.sjc.delivery.domain.user.service;
 
 import com.sjc.delivery.domain.user.dto.request.UserRegisterRequest;
 import com.sjc.delivery.domain.user.entity.User;
+import com.sjc.delivery.domain.user.exception.NoSuchUserException;
 import com.sjc.delivery.domain.user.repository.UserRepository;
-import java.util.NoSuchElementException;
+import com.sjc.delivery.global.enums.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("사용자 정보가 없습니다."));
+        return userRepository.findById(userId).orElseThrow(() -> new NoSuchUserException(ErrorCode.MEMBER_NOT_FOUND));
     }
 }
