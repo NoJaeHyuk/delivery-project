@@ -7,29 +7,24 @@ import lombok.Getter;
 @Getter
 public class UserResponse {
     private Long id;
-    private String userName;
     private String email;
     private String nickName;
-    private String userRank;
-    private String userRole;
+    private String name;
 
     @Builder
-    public UserResponse(Long id, String userName, String email, String nickName, String userRank,
-        String userRole) {
+    public UserResponse(Long id, String email, String nickName, String name) {
         this.id = id;
-        this.userName = userName;
         this.email = email;
         this.nickName = nickName;
-        this.userRank = userRank;
-        this.userRole = userRole;
+        this.name = name;
     }
 
     public static UserResponse from(User user){
         return UserResponse.builder()
             .id(user.getId())
-            .userName(user.getUserName())
             .email(user.getEmail())
             .nickName(user.getNickName())
+            .name(user.getName())
             .build();
     }
 }

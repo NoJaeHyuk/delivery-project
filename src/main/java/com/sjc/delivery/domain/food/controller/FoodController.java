@@ -33,22 +33,22 @@ public class FoodController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateFood(@RequestBody FoodUpdateRequest foodUpdateRequest) {
+    public ResponseEntity<ApiResponse<FoodResponse>> updateFood(@RequestBody FoodUpdateRequest foodUpdateRequest) {
         return ResponseEntity.ok(
             ApiResponseUtils.success(FoodResponse.from(foodService.updateFood(foodUpdateRequest))));
     }
 
     @GetMapping("/{foodId}")
-    public ResponseEntity<?> getFood(@PathVariable Long foodId) {
+    public ResponseEntity<ApiResponse<FoodResponse>> getFood(@PathVariable Long foodId) {
         return ResponseEntity.ok().body(
             ApiResponseUtils.success(FoodResponse.from(foodService.findById(foodId))));
     }
 
     @GetMapping("/store/{storeId}")
-    public ResponseEntity<?> getFoodByStore(@PathVariable Long storeId) {
-        List<Food> byStore = foodService.findByStore(storeId);
+    public ResponseEntity<ApiResponse<List<FoodResponse>>> getFoodByStore(@PathVariable Long storeId) {
+        List<Food> stores = foodService.findByStore(storeId);
 
-        List<FoodResponse> foodResponses = byStore.stream()
+        List<FoodResponse> foodResponses = stores.stream()
             .map(m -> FoodResponse.from(m))
             .collect(Collectors.toList());
 

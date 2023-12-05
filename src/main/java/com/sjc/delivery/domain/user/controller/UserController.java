@@ -3,6 +3,8 @@ package com.sjc.delivery.domain.user.controller;
 import com.sjc.delivery.domain.user.dto.request.UserRegisterRequest;
 import com.sjc.delivery.domain.user.dto.response.UserResponse;
 import com.sjc.delivery.domain.user.service.UserService;
+import com.sjc.delivery.global.resolver.Login;
+import com.sjc.delivery.global.resolver.LoginInfo;
 import com.sjc.delivery.global.response.ApiResponse;
 import com.sjc.delivery.global.utils.ApiResponseUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<UserResponse>> getLoginUser() {
+    public ResponseEntity<ApiResponse<UserResponse>> getLoginUser(@Login LoginInfo loginInfo) {
         //Security 설정 후 로그인 사용자 인증정보 받아서 구현 예정
         Long user_id = 1L;
 
