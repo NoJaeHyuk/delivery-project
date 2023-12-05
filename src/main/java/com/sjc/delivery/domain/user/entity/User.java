@@ -4,9 +4,9 @@ import static jakarta.persistence.FetchType.LAZY;
 
 import com.sjc.delivery.domain.BaseTimeEntity;
 import com.sjc.delivery.domain.order.entity.Order;
+import com.sjc.delivery.domain.order.entity.OrderMenu;
 import com.sjc.delivery.domain.store.entity.Store;
 import com.sjc.delivery.global.enums.Role;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,7 +28,6 @@ public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
     private String email;
     private String name;
@@ -44,6 +43,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", fetch = LAZY)
     private final List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = LAZY)
+    private final List<OrderMenu> orderMenus = new ArrayList<>();
 
     @Builder
     public User(String email, String name, String nickName,
