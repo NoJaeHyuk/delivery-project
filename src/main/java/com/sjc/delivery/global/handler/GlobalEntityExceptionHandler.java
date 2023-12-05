@@ -1,6 +1,9 @@
 package com.sjc.delivery.global.handler;
 
+import static org.springframework.http.HttpStatus.*;
+
 import com.sjc.delivery.global.exception.BaseException;
+import com.sjc.delivery.global.response.ApiResponse;
 import com.sjc.delivery.global.response.ExceptionResponse;
 import com.sjc.delivery.global.utils.ApiResponseUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -19,24 +22,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
+    public ResponseEntity<ApiResponse<?>> handleAllException(Exception ex, WebRequest request) {
 
         log.error("handling {}, message : {}", ex.getClass().toString(), ex.getMessage());
 
         //request.getDescription
         //Get a short description of this request, typically containing request URI and session id.
         return new ResponseEntity<>(
-            new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(),
-                request.getDescription(false)), HttpStatus.INTERNAL_SERVER_ERROR);
+            ApiResponseUtils.error(
+                new ExceptionResponse(INTERNAL_SERVER_ERROR, ex.getMessage(),
+                    request.getDescription(false))), INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<Object> handleApplicationException(BaseException ex, WebRequest request) {
-        log.error("BaseException : {}", ex.getMessage());
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ApiResponse<?>> handleApplicationException(BaseException ex, WebRequest request) {
+        log.error("handling {}, message : {}", ex.getClass().toString(), ex.getMessage());
 
         return new ResponseEntity<>(
-            new ExceptionResponse(ex.getErrorCode().getHttpStatus(), ex.getMessage(),
-                request.getDescription(false)), ex.getErrorCode().getHttpStatus());
+            ApiResponseUtils.error(
+                new ExceptionResponse(ex.getErrorCode().getHttpStatus(), ex.getMessage(),
+                    request.getDescription(false))), BAD_REQUEST);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class GlobalEntityExceptionHandler extends ResponseEntityExceptionHandler
 
         return new ResponseEntity<>(
             ApiResponseUtils.error(
-            new ExceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage(),
-                request.getDescription(false))), HttpStatus.BAD_REQUEST);
+            new ExceptionResponse(BAD_REQUEST, ex.getMessage(),
+                request.getDescription(false))), BAD_REQUEST);
     }
 }

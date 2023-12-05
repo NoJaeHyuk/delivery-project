@@ -1,7 +1,6 @@
 package com.sjc.delivery.domain.user.dto.request;
 
-import com.sjc.delivery.domain.food.entity.Food;
-import com.sjc.delivery.domain.store.entity.Store;
+import com.sjc.delivery.global.enums.Role;
 import com.sjc.delivery.domain.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,20 +8,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserRegisterRequest {
-    private String userName;
     private String email;
+    private String name;
     private String nickName;
     private String password;
-    private String userRank;
-    private String userRole;
-
+    private String phone;
+    private Role role;
     public User toEntity(String password) {
         return User.builder()
-            .userName(this.userName)
             .email(this.email)
+            .name(this.name)
             .nickName(this.nickName)
-            .userRank(this.userRank)
-            .userRole(this.userRole)
+            .role(role.USER)
+            .phone(this.phone)
             .password(password)
             .build();
     }

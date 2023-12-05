@@ -25,7 +25,7 @@ public class FoodResponse {
         this.foodImage = foodImage;
     }
 
-    public static FoodResponse toResponse(Food food){
+    public static FoodResponse from(Food food){
         return FoodResponse.builder()
             .id(food.getId())
             .foodName(food.getFoodName())

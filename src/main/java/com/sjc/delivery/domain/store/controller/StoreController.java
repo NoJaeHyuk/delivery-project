@@ -5,6 +5,9 @@ import com.sjc.delivery.domain.store.dto.request.StoreUpdateRequest;
 import com.sjc.delivery.domain.store.dto.response.StoreResponse;
 import com.sjc.delivery.domain.store.entity.Store;
 import com.sjc.delivery.domain.store.service.StoreService;
+import com.sjc.delivery.global.resolver.Login;
+import com.sjc.delivery.global.resolver.LoginInfo;
+import com.sjc.delivery.global.response.ApiResponse;
 import com.sjc.delivery.global.utils.ApiResponseUtils;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,41 +22,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/store")
+@RequestMapping("api/stores")
 @RequiredArgsConstructor
 public class StoreController {
 
     private final StoreService storeService;
 
     @PostMapping("")
-    public ResponseEntity<?> registerStore(@RequestBody StoreRegisterRequest storeRegisterRequest) {
-        // 유저 ID, 로그인에 대한 부분이 정해지면 구현
-        Long user_id = 1L;
-
-        return ResponseEntity.ok(ApiResponseUtils.success("OK",
-            StoreResponse.toResponse(storeService.registerStore(user_id, storeRegisterRequest))));
+    public ResponseEntity<?> registerStore(@RequestBody StoreRegisterRequest storeRegisterRequest,
+        @Login LoginInfo loginInfo) {
+        return ResponseEntity.ok(ApiResponseUtils.success(
+            StoreResponse.from(storeService.registerStore(loginInfo.userId(), storeRegisterRequest))));
     }
 
     @PutMapping("")
     public ResponseEntity<?> updateStore(@RequestBody StoreUpdateRequest storeUpdateRequest) {
-        return ResponseEntity.ok(ApiResponseUtils.success("OK",
-            StoreResponse.toResponse(storeService.updateStore(storeUpdateRequest))));
+        return ResponseEntity.ok(ApiResponseUtils.success(
+            StoreResponse.from(storeService.updateStore(storeUpdateRequest))));
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getAllStore() {
+    public ResponseEntity<ApiResponse<List<StoreResponse>>> getAllStore() {
         List<Store> stores = storeService.findAllStore();
 
         List<StoreResponse> storeResponses = stores.stream()
-            .map(m -> StoreResponse.toResponse(m))
+            .map(m -> StoreResponse.from(m))
             .collect(Collectors.toList());
 
-        return ResponseEntity.ok(ApiResponseUtils.success("OK", storeResponses));
+        return ResponseEntity.ok(ApiResponseUtils.success(storeResponses));
     }
 
     @GetMapping("/{storeId}")
     public ResponseEntity<?> getStore(@PathVariable Long storeId) {
-        return ResponseEntity.ok(ApiResponseUtils.success("OK",
-            StoreResponse.toResponse(storeService.findById(storeId))));
+        return ResponseEntity.ok(ApiResponseUtils.success(
+            StoreResponse.from(storeService.findById(storeId))));
     }
 }
