@@ -7,8 +7,7 @@ import com.sjc.delivery.global.response.ApiResponse;
  * 공통 ApiResponse 호출 유틸
  */
 public class ApiResponseUtils {
-
-    public static <T> ApiResponse<T> success (String message, T data) {
+    public static <T> ApiResponse<T> success (T data) {
         return ApiResponse.res(true, data, null);
     }
 
